@@ -122,13 +122,13 @@ public class Crypto {
 	 */
 	public static String encryptAES(String value, String privateKey) {
 		try {
-      byte[] raw = privateKey.getBytes();
+                        byte[] raw = privateKey.getBytes();
 			SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
 			int AES_KEYLENGTH = 128;
 			byte[] iv = new byte[AES_KEYLENGTH / 8];
 			SecureRandom prng = new SecureRandom();
 			prng.nextBytes(iv);
-			Cipher cipher = Cipher.getInstance("AES");
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
 			cipher.init(Cipher.ENCRYPT_MODE, skeySpec, new IvParameterSpec(iv)); 
 			return Codec.byteToHexString(cipher.doFinal(value.getBytes()));
 		} catch (Exception ex) {
